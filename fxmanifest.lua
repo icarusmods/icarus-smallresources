@@ -10,7 +10,8 @@ shared_scripts {
 }
 
 client_scripts {
-    'client.lua',
+    'client/client.lua',
+    'client/vehcontrol.lua'
 }
 
 server_scripts {

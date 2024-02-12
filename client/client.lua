@@ -15,6 +15,15 @@ Citizen.CreateThread(function()
   end
 end)
 
+
+Citizen.CreateThread(function()
+    while Config.hatgone do
+        Citizen.Wait(1000)
+        SetPedCanLosePropsOnDamage(PlayerPedId(), false, 0)
+    end
+end)
+
+
 local function getVehicleFromVehList(hash)
 	for _, v in pairs(QBCore.Shared.Vehicles) do
 		if hash == v.hash then
@@ -76,12 +85,7 @@ CreateThread(function()
 	end
 end)
 
-CreateThread(function()
-		Citizen.Wait(0)
-	while Config.ftdisable do
 SetFlashLightKeepOnWhileMoving(true)
-end
-end)
 
 
 

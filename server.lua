@@ -29,3 +29,13 @@ RegisterNetEvent('icarussr:server:SaveCar', function(mods, vehicle, _, plate)
     end
 end)
 
+RegisterCommand("window", function(source, args)
+
+    local window = args[1]
+    if not args[1] then
+        TriggerClientEvent("SeatDAWA", source)
+    else
+        TriggerClientEvent("CarWindowS", -1, source, window)
+    end
+end, false)
+
