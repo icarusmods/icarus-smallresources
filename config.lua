@@ -24,6 +24,8 @@ Config.bhdisable = true
 Config.rdchance = 0.5
 -- Chance of ragolling while jumping if Config.bhdisable is true (0.5 = 50%)
 
+Config.pistolwhip = true
+-- Removes pistol whipping
 
 isr.Blips = {
     ['Test'] = {			-- put as "isr.blips = {}" if you dont want to use blips

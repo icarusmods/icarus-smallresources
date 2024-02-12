@@ -68,7 +68,7 @@ end)
 Citizen.CreateThread(function()
 	while Config.crdisable do
 		Citizen.Wait(0)
-		if IsPedArmed(GetPlayerPed(-1), 4 | 2) and IsControlPressed(0, 25) then
+		if IsPedArmed(GetPlayerPed(-1), 4, 2) and IsControlPressed(0, 25) then
 			DisableControlAction(0, 22, true)
 		end
 	end
@@ -93,7 +93,7 @@ if Config.FPShooting then
         while true do
             local ped = PlayerPedId()
             local _, weapon = GetCurrentPedWeapon(ped)
-            local unarmed = `WEAPON_UNARMED`
+            local unarmed = "WEAPON_UNARMED"
             local inVeh = GetVehiclePedIsIn(PlayerPedId(), false)
             sleep = 1000
             if IsPedInAnyVehicle(PlayerPedId()) and weapon ~= unarmed then
@@ -137,8 +137,8 @@ Citizen.CreateThread(function()
         AddTextComponentSubstringPlayerName(k)
         EndTextCommandSetBlipName(blip)
     end
-end
 end)
+
 
 AddEventHandler('onResourceStop', function()
     for k, v in pairs(isr.Blips) do
@@ -147,4 +147,15 @@ AddEventHandler('onResourceStop', function()
     end
 end)
 
+Citizen.CreateThread(function()
+    while Config.pistolwhip do
+        Citizen.Wait(0)
+        local ped = PlayerPedId()
+                if IsPedArmed(ped, 6) then
+            DisableControlAction(1, 140, true)
+                DisableControlAction(1, 141, true)
+                DisableControlAction(1, 142, true)
+        end
+    end
+end)
 
