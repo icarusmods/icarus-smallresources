@@ -15,6 +15,15 @@ Citizen.CreateThread(function()
   end
 end)
 
+
+Citizen.CreateThread(function()
+    while Config.hatgone do
+        Citizen.Wait(1000)
+        SetPedCanLosePropsOnDamage(PlayerPedId(), false, 0)
+    end
+end)
+
+
 local function getVehicleFromVehList(hash)
 	for _, v in pairs(QBCore.Shared.Vehicles) do
 		if hash == v.hash then
@@ -76,12 +85,27 @@ CreateThread(function()
 	end
 end)
 
-CreateThread(function()
-		Citizen.Wait(0)
-	while Config.ftdisable do
 SetFlashLightKeepOnWhileMoving(true)
-end
-end)
 
+if Config.FPShooting then
+    CreateThread(function()
+        while true do
+            local ped = PlayerPedId()
+            local _, weapon = GetCurrentPedWeapon(ped)
+            local unarmed = `WEAPON_UNARMED`
+            local inVeh = GetVehiclePedIsIn(PlayerPedId(), false)
+            sleep = 1000
+            if IsPedInAnyVehicle(PlayerPedId()) and weapon ~= unarmed then
+                sleep = 1
+                if IsControlJustPressed(0, 25) then
+                    SetFollowVehicleCamViewMode(3)
+                elseif IsControlJustReleased(0, 25) then
+                    SetFollowVehicleCamViewMode(0)
+                end
+            end
+            Wait(sleep)
+        end
+    end)
+end
 
 
