@@ -15,6 +15,7 @@ Citizen.CreateThread(function()
   end
 end)
 
+local ragdoll_chance = Config.rdchance
 
 Citizen.CreateThread(function()
     while Config.hatgone do
@@ -107,5 +108,43 @@ if Config.FPShooting then
         end
     end)
 end
+
+
+Citizen.CreateThread(function()
+	while Config.bhdisable do
+		Citizen.Wait(100) -- check every 100 ticks, performance matters
+		local ped = PlayerPedId()
+		if IsPedOnFoot(ped) and not IsPedSwimming(ped) and (IsPedRunning(ped) or IsPedSprinting(ped)) and not IsPedClimbing(ped) and IsPedJumping(ped) and not IsPedRagdoll(ped) then
+			local chance_result = math.random()
+			if chance_result < ragdoll_chance then 
+				Citizen.Wait(600)
+                ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', 0.08)
+				SetPedToRagdoll(ped, 5000, 1, 2)
+			else
+				Citizen.Wait(2000)
+			end
+		end
+	end
+end)
+
+Citizen.CreateThread(function()
+    for k,v in pairs(isr.Blips) do
+        local blip = AddBlipForCoord(v.Coords.x,v.Coords.y,v.Coords.z)
+        SetBlipSprite(blip, v.Sprite)
+        SetBlipScale(blip, v.Size)
+        SetBlipColour(blip, v.Color)
+        BeginTextCommandSetBlipName('STRING')
+        AddTextComponentSubstringPlayerName(k)
+        EndTextCommandSetBlipName(blip)
+    end
+end
+end)
+
+AddEventHandler('onResourceStop', function()
+    for k, v in pairs(isr.Blips) do
+        local blip = AddBlipForCoord(v.Coords.x,v.Coords.y,v.Coords.z)
+        RemoveBlip(blip)
+    end
+end)
 
 
