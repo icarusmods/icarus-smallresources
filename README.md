@@ -9,6 +9,8 @@ Currently, this script has (with config abilities)
 - Force flashlight state (stays on until turned off manually)
 - Removes "Action mode" (stance after shooting or punching)
 - Adds controls for windows, doors, and trunks
+- Ped faceplants when spam jumping (configurable, if true, configurable chance of ragdolling)
+- Blip creator
 
 ***DEPENDANT ON QB-CORE***
   ## MORE TO COME :D
