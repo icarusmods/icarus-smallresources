@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
 -- ADMIN OWN CAR
-QBCore.Commands.Add('admincar',{}, {}, false, function(source, _)
+QBCore.Commands.Add('savecar',{}, {}, false, function(source, _)
     TriggerClientEvent('icarussr:client:SaveCar', source)
 end, 'admin')
 

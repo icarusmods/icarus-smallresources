@@ -5,16 +5,15 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 -- SPAM PUNCHING
 Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-        DisableControlAction(1, 140, true)
-        if not IsPlayerTargettingAnything(PlayerId()) then
-          DisableControlAction(1, 141, true)
-          DisableControlAction(1, 142, true)
-        end
-    end
+   while Config.spdisable do
+   Citizen.Wait(0)
+   DisableControlAction(1, 140, true)
+   if not IsPlayerTargettingAnything(PlayerId()) then
+   DisableControlAction(1, 141, true)
+   DisableControlAction(1, 142, true)
+   end
+  end
 end)
-
 
 local function getVehicleFromVehList(hash)
 	for _, v in pairs(QBCore.Shared.Vehicles) do
@@ -26,7 +25,7 @@ end
 
 -- BLIND FIRE
 Citizen.CreateThread(function()
-	while true do
+	while Config.bfdisable do
 		Citizen.Wait(5)
 		local ped = PlayerPedId()
 		if IsPedInCover(ped, 1) and not IsPedAimingFromCover(ped, 1) then 
@@ -56,6 +55,33 @@ RegisterNetEvent('icarussr:client:SaveCar', function()
     end
 end)
 
+Citizen.CreateThread(function()
+	while Config.crdisable do
+		Citizen.Wait(0)
+		if IsPedArmed(GetPlayerPed(-1), 4 | 2) and IsControlPressed(0, 25) then
+			DisableControlAction(0, 22, true)
+		end
+	end
+end)
+
+CreateThread(function()
+	while Config.amdisable do
+		local playerPed = PlayerPedId()
+		if IsPedUsingActionMode(playerPed) then
+			SetPedUsingActionMode(playerPed, false, -1, 0)
+        else
+            Wait(500)
+        end
+        Wait(0)
+	end
+end)
+
+CreateThread(function()
+		Citizen.Wait(0)
+	while Config.ftdisable do
+SetFlashLightKeepOnWhileMoving(true)
+end
+end)
 
 
 
