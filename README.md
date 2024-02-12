@@ -8,6 +8,7 @@ Currently, this script has (with config abilities)
 - Removes blind firing
 - Force flashlight state (stays on until turned off manually)
 - Removes "Action mode" (stance after shooting or punching)
+- Adds controls for windows, doors, and trunks
 
   ## MORE TO COME :D
 
