@@ -27,6 +27,10 @@ Config.rdchance = 0.5
 Config.pistolwhip = true
 -- Removes pistol whipping
 
+Config.soundremove = true
+-- Removes ambient sound
+
+
 isr.Blips = {
     ['Test'] = {			-- put as "isr.blips = {}" if you dont want to use blips
         Coords = vector3(200,200,200),
