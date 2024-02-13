@@ -14,8 +14,9 @@ Currently, this script has (with config abilities)
 - Removes ambient sounds
 - Adds ragdolling when spam jumping (configurable chance)
 - Removes pistol whipping
-
-***DEPENDANT ON QB-CORE***
+- Adds /carry
+  
+***DEPENDANT ON QB-CORE AND OX_LIB***
   ## MORE TO COME :D
 
   __For support, join discord at https://discord.gg/3zFNJCZM5U__
