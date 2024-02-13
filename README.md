@@ -14,6 +14,7 @@ Currently, this script has (with config abilities)
 - Remove pistol whipping
 - Remove ambient sounds
 
+
 ***DEPENDANT ON QB-CORE***
   ## MORE TO COME :D
 
