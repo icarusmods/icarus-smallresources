@@ -1,4 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local isEscorting = false
+local PlayerStatus = {}
 
 -- ADMIN OWN CAR
 QBCore.Commands.Add('savecar',{}, {}, false, function(source, _)
@@ -39,14 +41,12 @@ RegisterCommand("window", function(source, args)
     end
 end, false)
 
-QBCore.Commands.Add('carry', "Pickup your friends", {}, false, function(source)
+QBCore.Commands.Add('carry', "Carry", {}, false, function(source)
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-        TriggerClientEvent('icarus:client:carry', src)
+    TriggerClientEvent('icarus:client:CarryPlayer', src)
 end)
 
-
-RegisterNetEvent('icarus:server:carry', function(playerId)
+RegisterNetEvent('icarus:server:CarryPlayer', function(playerId)
     local src = source
     local playerPed = GetPlayerPed(src)
     local targetPed = GetPlayerPed(playerId)
@@ -59,12 +59,19 @@ RegisterNetEvent('icarus:server:carry', function(playerId)
     if not Player or not EscortPlayer then return end
 
     if EscortPlayer.PlayerData.metadata['ishandcuffed'] or EscortPlayer.PlayerData.metadata['isdead'] or EscortPlayer.PlayerData.metadata['inlaststand'] then
-        TriggerClientEvent('police:client:GetKidnappedTarget', EscortPlayer.PlayerData.source, Player.PlayerData.source)
-        TriggerClientEvent('police:client:GetKidnappedDragger', Player.PlayerData.source, EscortPlayer.PlayerData.source)
+        TriggerClientEvent('icarus:client:Carried', EscortPlayer.PlayerData.source, Player.PlayerData.source)
+        TriggerClientEvent('icarus:client:Carrier', Player.PlayerData.source, EscortPlayer.PlayerData.source)
     else
             ShowNotification(Carry.notcuffed, 'error')
     end
 end)
 
-
-
+ShowNotification = function(message, type)
+        lib.notify({
+            title = Carry.title,
+            description = message,
+            icon = Carry.icon,
+            type = type,
+            position = Carry.position
+        })
+end

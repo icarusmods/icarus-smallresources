@@ -193,21 +193,6 @@ if Config.soundremove then
     end)
 end
 
-if Config.carry then
-RegisterNetEvent('icarus:client:carry', function()
-    local player, distance = QBCore.Functions.GetClosestPlayer()
-    if player ~= -1 and distance < 2.5 then
-        local playerId = GetPlayerServerId(player)
-        if not IsPedInAnyVehicle(GetPlayerPed(player)) then
-            if not isHandcuffed and not isEscorted then
-                TriggerServerEvent('icarus:server:carry', playerId)
-            end
-        end
-    else
-            ShowNotification(Carry.nonear, 'error')
-    end
-end)
-end
 
 ShowNotification = function(message, type)
         lib.notify({

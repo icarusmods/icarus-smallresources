@@ -1,6 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 lua54 'yes'
+version '1.8'
 
 author 'Icarus Modding'
 description 'Small Resources script made by Icarus Modding'
@@ -14,11 +15,13 @@ shared_scripts {
 
 client_scripts {
     'client/client.lua',
+    'client/carry.lua',
     'client/vehcontrol.lua'
 }
 
 server_scripts {
     'server.lua',
+    'versioncheck/version.lua',
     '@oxmysql/lib/MySQL.lua',
 }
 
