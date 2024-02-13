@@ -1,12 +1,15 @@
 fx_version 'cerulean'
 game 'gta5'
+lua54 'yes'
 
 author 'Icarus Modding'
 description 'Small Resources script made by Icarus Modding'
 
 shared_scripts {
-    'config.lua',
+    'shared/config.lua',
     '@qb-core/shared/locale.lua',
+    'shared/words.lua',
+    '@ox_lib/init.lua',
 }
 
 client_scripts {
@@ -17,4 +20,9 @@ client_scripts {
 server_scripts {
     'server.lua',
     '@oxmysql/lib/MySQL.lua',
+}
+
+dependencies {
+    'qb-core',
+    'ox_lib',
 }

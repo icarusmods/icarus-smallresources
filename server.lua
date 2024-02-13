@@ -20,9 +20,9 @@ RegisterNetEvent('icarussr:server:SaveCar', function(mods, vehicle, _, plate)
                 plate,
                 0
             })
-            TriggerClientEvent('QBCore:Notify', src,"You now own this car!", 'success', 5000)
+            ShowNotification(Carry.carown, 'success')
         else
-            TriggerClientEvent('QBCore:Notify', src,"Couldnt do that!", 'error', 3000)
+            ShowNotification(Carry.carown, 'success')
         end
     else
         BanPlayer(src)
@@ -38,5 +38,33 @@ RegisterCommand("window", function(source, args)
         TriggerClientEvent("CarWindowS", -1, source, window)
     end
 end, false)
+
+QBCore.Commands.Add('carry', "Pickup your friends", {}, false, function(source)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+        TriggerClientEvent('icarus:client:carry', src)
+end)
+
+
+RegisterNetEvent('icarus:server:carry', function(playerId)
+    local src = source
+    local playerPed = GetPlayerPed(src)
+    local targetPed = GetPlayerPed(playerId)
+    local playerCoords = GetEntityCoords(playerPed)
+    local targetCoords = GetEntityCoords(targetPed)
+    if #(playerCoords - targetCoords) > 2.5 then return DropPlayer(src, 'Attempted exploit abuse') end
+
+    local Player = QBCore.Functions.GetPlayer(source)
+    local EscortPlayer = QBCore.Functions.GetPlayer(playerId)
+    if not Player or not EscortPlayer then return end
+
+    if EscortPlayer.PlayerData.metadata['ishandcuffed'] or EscortPlayer.PlayerData.metadata['isdead'] or EscortPlayer.PlayerData.metadata['inlaststand'] then
+        TriggerClientEvent('police:client:GetKidnappedTarget', EscortPlayer.PlayerData.source, Player.PlayerData.source)
+        TriggerClientEvent('police:client:GetKidnappedDragger', Player.PlayerData.source, EscortPlayer.PlayerData.source)
+    else
+            ShowNotification(Carry.notcuffed, 'error')
+    end
+end)
+
 
 

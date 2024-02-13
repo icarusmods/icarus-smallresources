@@ -30,6 +30,9 @@ Config.pistolwhip = true
 Config.soundremove = true
 -- Removes ambient sound
 
+Config.carry = true
+-- Removes ambient sound
+
 
 isr.Blips = {
     ['Test'] = {			-- put as "isr.blips = {}" if you dont want to use blips

@@ -1,4 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local libState = started
 
 -- ICARUS SMALL RESOURCES
 -- Some snippets custom made, some snippets made from other creators 
@@ -58,10 +59,10 @@ RegisterNetEvent('icarussr:client:SaveCar', function()
         if QBCore.Shared.Vehicles[vehname] ~= nil and next(QBCore.Shared.Vehicles[vehname]) ~= nil then
             TriggerServerEvent('icarussr:server:SaveCar', props, QBCore.Shared.Vehicles[vehname], GetHashKey(veh), plate)
         else
-            QBCore.Functions.Notify(Lang:t("error.no_store_vehicle_garage"), 'error')
+            ShowNotification(Carry.shared, 'error')
         end
     else
-        QBCore.Functions.Notify(Lang:t("error.no_vehicle"), 'error')
+            ShowNotification(Carry.nocar, 'error')
     end
 end)
 
@@ -190,4 +191,30 @@ if Config.soundremove then
         StartAudioScene("DLC_MPHEIST_TRANSITION_TO_APT_FADE_IN_RADIO_SCENE")
         StartAudioScene("FBI_HEIST_H5_MUTE_AMBIENCE_SCENE")
     end)
+end
+
+if Config.carry then
+RegisterNetEvent('icarus:client:carry', function()
+    local player, distance = QBCore.Functions.GetClosestPlayer()
+    if player ~= -1 and distance < 2.5 then
+        local playerId = GetPlayerServerId(player)
+        if not IsPedInAnyVehicle(GetPlayerPed(player)) then
+            if not isHandcuffed and not isEscorted then
+                TriggerServerEvent('icarus:server:carry', playerId)
+            end
+        end
+    else
+            ShowNotification(Carry.nonear, 'error')
+    end
+end)
+end
+
+ShowNotification = function(message, type)
+        lib.notify({
+            title = Carry.title,
+            description = message,
+            icon = Carry.icon,
+            type = type,
+            position = Carry.position
+        })
 end
