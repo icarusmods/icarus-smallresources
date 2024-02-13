@@ -11,6 +11,7 @@ Currently, this script has (with config abilities)
 - Adds controls for windows, doors, and trunks
 - Ped faceplants when spam jumping (configurable, if true, configurable chance of ragdolling)
 - Blip creator
+- Removes pistol whipping
 
 ***DEPENDANT ON QB-CORE***
   ## MORE TO COME :D
